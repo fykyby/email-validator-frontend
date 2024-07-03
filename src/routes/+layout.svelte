@@ -1,5 +1,7 @@
 <script lang="ts">
-  import "../app.css";
+	import '../app.css';
 </script>
 
-<slot />
+<main class="mx-auto flex max-w-7xl flex-col gap-4 p-4">
+	<slot />
+</main>
