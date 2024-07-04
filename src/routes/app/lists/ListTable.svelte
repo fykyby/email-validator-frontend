@@ -83,7 +83,7 @@
 		}),
 		table.column({
 			accessor: 'upload_date',
-			header: 'Created',
+			header: 'Created At',
 			cell: ({ value }) => {
 				const date = new Date(value);
 				const formatted = date.toLocaleString('en-GB');
