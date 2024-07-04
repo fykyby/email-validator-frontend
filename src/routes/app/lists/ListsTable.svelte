@@ -9,12 +9,12 @@
 		addSelectedRows
 	} from 'svelte-headless-table/plugins';
 	import * as Table from '$lib/components/ui/table';
-	import ListTableActions from './ListTableActions.svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { ArrowRight, ArrowLeft, ArrowUpDown } from 'lucide-svelte';
 	import { Input } from '$lib/components/ui/input';
 	import AddListDialog from '$lib/components/AddListDialog.svelte';
-	import ListTableCheckbox from './ListTableCheckbox.svelte';
+	import ListsTableActions from './ListsTableActions.svelte';
+	import ListsTableCheckbox from './ListsTableCheckbox.svelte';
 
 	type Props = {
 		data: {
@@ -47,7 +47,7 @@
 			id: 'checkbox',
 			header: (_, { pluginStates }) => {
 				const { allPageRowsSelected } = pluginStates.select;
-				return createRender(ListTableCheckbox, {
+				return createRender(ListsTableCheckbox, {
 					checked: allPageRowsSelected
 				});
 			},
@@ -55,7 +55,7 @@
 				const { getRowState } = pluginStates.select;
 				const { isSelected } = getRowState(row);
 
-				return createRender(ListTableCheckbox, {
+				return createRender(ListsTableCheckbox, {
 					checked: isSelected
 				});
 			},
@@ -103,7 +103,7 @@
 			id: `action`,
 			header: '',
 			cell: ({ value }) => {
-				return createRender(ListTableActions, { listIDs: [value] });
+				return createRender(ListsTableActions, { listIDs: [value] });
 			},
 			plugins: {
 				sort: {
@@ -143,7 +143,7 @@
 			<Input class="max-w-sm" placeholder="Search..." type="search" bind:value={$filterValue} />
 		</div>
 		{#if Object.keys($selectedDataIds).length > 0}
-			<ListTableActions
+			<ListsTableActions
 				outline
 				listIDs={Object.keys($selectedDataIds).map((key) => {
 					return data.files[parseInt(key)].id;
@@ -207,10 +207,6 @@
 											<div class="w-min">
 												<Render of={cell.render()} />
 											</div>
-											<!-- {:else if cell.id === 'filename'}
-											<Button variant="link" href={'/app/lists/' + cell.id} class="text-foreground">
-												<Render of={cell.render()} />
-											</Button> -->
 										{:else}
 											<div>
 												<Render of={cell.render()} />

@@ -20,3 +20,14 @@ export interface ListsApiResponse extends ApiResponse {
 		files: List[];
 	};
 }
+
+export type EmailAddress = {
+	address: string;
+	status: unknown;
+};
+
+export interface ListApiResponse extends ApiResponse {
+	data: {
+		emails: EmailAddress[];
+	};
+}

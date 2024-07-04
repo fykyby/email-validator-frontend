@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ListTable from './ListTable.svelte';
+	import ListsTable from './ListsTable.svelte';
 	import LoadingCircle from '$lib/components/LoadingCircle.svelte';
 	import AlertError from '$lib/components/AlertError.svelte';
 	import Header from '$lib/components/Header.svelte';
@@ -19,6 +19,6 @@
 	{/if}
 
 	{#if responseData.data?.files}
-		<ListTable data={responseData.data} />
+		<ListsTable data={responseData.data} />
 	{/if}
 {/await}
