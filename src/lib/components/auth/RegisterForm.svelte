@@ -30,18 +30,19 @@
 
 <form onsubmit={submit} class="mx-auto flex w-full flex-col gap-4 rounded-md border p-4">
 	<h2>Register</h2>
-	<div>
-		<Label for="emailRegister">Email</Label>
-		<Input id="emailRegister" name="email" type="email" required />
-	</div>
-	<div>
-		<Label for="passwordRegister">Password</Label>
-		<Input id="passwordRegister" name="password" type="password" required />
-	</div>
-	<div>
-		<Label for="passwordConfirmRegister">Confirm Password</Label>
-		<Input id="passwordConfirmRegister" name="passwordConfirm" type="password" required />
-	</div>
+
+	<Label>
+		Email
+		<Input name="email" type="email" required />
+	</Label>
+	<Label>
+		Password
+		<Input name="password" type="password" required />
+	</Label>
+	<Label>
+		Confirm Password
+		<Input name="passwordConfirm" type="password" required />
+	</Label>
 
 	{#if responseData.status === 'success'}
 		<AlertSuccess message={responseData.message} />

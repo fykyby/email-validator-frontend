@@ -34,14 +34,15 @@
 
 <form onsubmit={submit} class="mx-auto flex w-full flex-col gap-4 rounded-md border p-4">
 	<h2>Log In</h2>
-	<div>
-		<Label for="emailLogIn">Email</Label>
-		<Input id="emailLogIn" name="email" type="email" required />
-	</div>
-	<div>
-		<Label for="passwordLogIn">Password</Label>
-		<Input id="passwordLogIn" name="password" type="password" required />
-	</div>
+
+	<Label>
+		Email
+		<Input name="email" type="email" required />
+	</Label>
+	<Label>
+		Password
+		<Input name="password" type="password" required />
+	</Label>
 
 	{#if responseData.status === 'success'}
 		<AlertSuccess message={responseData.message} />

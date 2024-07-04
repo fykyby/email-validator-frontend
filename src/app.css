@@ -66,4 +66,8 @@
 	p {
 		@apply leading-7 [&:not(:first-child)]:mt-6;
 	}
+
+	label {
+		@apply grid gap-1.5;
+	}
 }
