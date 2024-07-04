@@ -2,12 +2,12 @@
 	import { invalidateAll } from '$app/navigation';
 	import { apiRequest, newResponseData } from '$lib/api';
 	import { Button } from '$lib/components/ui/button';
-	import type { ResponseData } from '$lib/types';
+	import type { ApiResponse } from '$lib/types';
 	import AlertError from '../AlertError.svelte';
 	import LoadingCircle from '../LoadingCircle.svelte';
 	import { LogOut } from 'lucide-svelte';
 
-	let responseData: ResponseData = $state(newResponseData());
+	let responseData: ApiResponse = $state(newResponseData());
 
 	async function logOut() {
 		responseData.status = 'pending';

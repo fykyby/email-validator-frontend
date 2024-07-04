@@ -1,12 +1,12 @@
 import { PUBLIC_API_URL } from '$env/static/public';
-import type { ResponseData } from './types';
+import type { ApiResponse } from './types';
 
 type Method = 'GET' | 'POST' | 'DELETE' | 'PUT';
 
 type FetchConfig = {
 	method: Method;
 	credentials: 'include';
-	headers?: HeadersInit;
+	headers: Headers;
 	body?: BodyInit;
 };
 
@@ -15,9 +15,10 @@ type RequestData = {
 	path: string;
 	body?: BodyInit;
 	bodyType?: 'json' | 'formdata';
+	cookies?: string | null;
 };
 
-export async function apiRequest(request: RequestData): Promise<ResponseData> {
+export async function apiRequest(request: RequestData): Promise<ApiResponse> {
 	if (!request.bodyType) {
 		request.bodyType = 'json';
 	}
@@ -25,7 +26,7 @@ export async function apiRequest(request: RequestData): Promise<ResponseData> {
 	const requestData: FetchConfig = {
 		method: request.method,
 		credentials: 'include',
-		headers: undefined,
+		headers: new Headers(),
 		body: undefined
 	};
 
@@ -33,8 +34,13 @@ export async function apiRequest(request: RequestData): Promise<ResponseData> {
 		requestData.body = request.body;
 
 		if (request.bodyType === 'json') {
-			requestData.headers = new Headers([['Content-Type', 'application/json']]);
+			requestData.headers.set('Content-Type', 'application/json');
 		}
+	}
+
+	if (request.cookies) {
+		console.log(request.cookies);
+		requestData.headers.set('cookie', request.cookies);
 	}
 
 	try {
@@ -55,7 +61,7 @@ export async function apiRequest(request: RequestData): Promise<ResponseData> {
 	}
 }
 
-export function newResponseData(): ResponseData {
+export function newResponseData(): ApiResponse {
 	return {
 		status: 'unset',
 		message: null,

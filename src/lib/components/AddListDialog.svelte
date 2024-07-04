@@ -34,7 +34,7 @@
 
 <Dialog.Root bind:open>
 	<Dialog.Trigger asChild let:builder>
-		<Button builders={[builder]}>New</Button>
+		<Button builders={[builder]} class="w-fit">New</Button>
 	</Dialog.Trigger>
 	<Dialog.Content class="sm:max-w-[425px]">
 		<Dialog.Header>

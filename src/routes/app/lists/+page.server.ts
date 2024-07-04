@@ -1,9 +1,14 @@
-// import { apiRequest } from '$lib/api.js';
-// import type { ResponseData } from '$lib/types.js';
+import { apiRequest } from '$lib/api.js';
+import type { ListsApiResponse } from '$lib/types';
 
-// export async function load({ locals }) {
-// 	console.log(locals.user);
+export async function load({ request }) {
+	const clientCookies = request.headers.get('cookie');
 
-// 	const response: ResponseData = await apiRequest('GET', '/lists');
-// 	console.log(response);
-// }
+	return {
+		responseData: apiRequest({
+			method: 'GET',
+			path: '/lists',
+			cookies: clientCookies
+		}) as Promise<ListsApiResponse>
+	};
+}

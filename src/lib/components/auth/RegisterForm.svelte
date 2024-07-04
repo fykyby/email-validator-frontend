@@ -4,11 +4,11 @@
 	import { Label } from '$lib/components/ui/label';
 	import LoadingCircle from '../LoadingCircle.svelte';
 	import AlertError from '../AlertError.svelte';
-	import type { ResponseData } from '$lib/types';
+	import type { ApiResponse } from '$lib/types';
 	import AlertSuccess from '../AlertSuccess.svelte';
 	import { apiRequest, newResponseData } from '$lib/api';
 
-	let responseData: ResponseData = $state(newResponseData());
+	let responseData: ApiResponse = $state(newResponseData());
 
 	async function submit(e: SubmitEvent) {
 		e.preventDefault();
