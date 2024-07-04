@@ -25,7 +25,7 @@
 
 <div class="flex flex-col items-end gap-4">
 	{#if responseData.status === 'pending'}
-		<Button size="icon" variant="ghost" class="disabled" onclick={logOut}>
+		<Button disabled size="icon" variant="ghost" class="disabled" onclick={logOut}>
 			<LoadingCircle />
 		</Button>
 	{:else}
