@@ -18,7 +18,7 @@
 	});
 </script>
 
-<Tooltip.Root openDelay={250}>
+<Tooltip.Root openDelay={300}>
 	<Tooltip.Trigger asChild let:builder>
 		<Button
 			variant="ghost"
