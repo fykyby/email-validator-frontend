@@ -1,1 +1,1 @@
-<h1>email templates</h1>
+<h1>Email Templates</h1>

@@ -2,10 +2,10 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
-	import LoadingCircle from './LoadingCircle.svelte';
-	import AlertError from './AlertError.svelte';
+	import LoadingCircle from '../LoadingCircle.svelte';
+	import AlertError from '../AlertError.svelte';
 	import type { ResponseData } from '$lib/types';
-	import AlertSuccess from './AlertSuccess.svelte';
+	import AlertSuccess from '../AlertSuccess.svelte';
 	import { apiRequest, newResponseData } from '$lib/api';
 
 	let responseData: ResponseData = $state(newResponseData());

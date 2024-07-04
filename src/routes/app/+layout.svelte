@@ -1,5 +1,5 @@
 <script>
-	import Dock from '$lib/components/Dock.svelte';
+	import Dock from '$lib/components/dock/Dock.svelte';
 </script>
 
 <slot />

@@ -12,7 +12,7 @@ type RequestData = {
 
 export async function apiRequest(
 	method: Method,
-	url: string,
+	path: string,
 	body?: string
 ): Promise<ResponseData> {
 	const requestData: RequestData = {
@@ -28,7 +28,7 @@ export async function apiRequest(
 	}
 
 	try {
-		const response = await fetch(PUBLIC_API_URL + url, requestData);
+		const response = await fetch(PUBLIC_API_URL + path, requestData);
 		const data = await response.json();
 
 		return {

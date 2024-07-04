@@ -1,1 +1,1 @@
-<h1>campaigns</h1>
+<h1>Campaigns</h1>
