@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
 	import { apiRequest, newResponseData } from '$lib/api';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import AlertError from './AlertError.svelte';
@@ -7,6 +8,7 @@
 	import { Button } from './ui/button';
 	import Input from './ui/input/input.svelte';
 	import Label from './ui/label/label.svelte';
+	import { Plus } from 'lucide-svelte';
 
 	let responseData = $state(newResponseData());
 	let open = $state(false);
@@ -27,6 +29,7 @@
 		responseData = response;
 
 		if (response.status === 'success') {
+			await invalidateAll();
 			open = false;
 		}
 	}
@@ -34,7 +37,9 @@
 
 <Dialog.Root bind:open>
 	<Dialog.Trigger asChild let:builder>
-		<Button builders={[builder]} class="w-fit">New</Button>
+		<Button builders={[builder]} variant="outline" size="icon">
+			<Plus />
+		</Button>
 	</Dialog.Trigger>
 	<Dialog.Content class="sm:max-w-[425px]">
 		<Dialog.Header>
@@ -54,7 +59,7 @@
 		</form>
 
 		<Dialog.Footer>
-			<div class="flex w-full flex-col gap-4">
+			<div class="flex w-full flex-col gap-4 sm:items-end">
 				{#if responseData.status === 'error'}
 					<AlertError message={responseData.message} />
 				{/if}
@@ -67,7 +72,7 @@
 						<LoadingCircle />
 					</Button>
 				{:else}
-					<Button type="submit" form="createListForm">Save changes</Button>
+					<Button type="submit" form="createListForm">Submit</Button>
 				{/if}
 			</div>
 		</Dialog.Footer>

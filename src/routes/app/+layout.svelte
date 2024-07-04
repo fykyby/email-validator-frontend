@@ -3,4 +3,5 @@
 </script>
 
 <slot />
+<span class="h-14"></span>
 <Dock />

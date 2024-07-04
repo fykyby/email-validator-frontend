@@ -12,7 +12,7 @@ export type ApiResponse = {
 export type List = {
 	id: number;
 	filename: string;
-	upload_date: Date;
+	upload_date: string;
 };
 
 export interface ListsApiResponse extends ApiResponse {

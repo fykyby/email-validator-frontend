@@ -39,7 +39,6 @@ export async function apiRequest(request: RequestData): Promise<ApiResponse> {
 	}
 
 	if (request.cookies) {
-		console.log(request.cookies);
 		requestData.headers.set('cookie', request.cookies);
 	}
 

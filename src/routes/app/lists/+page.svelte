@@ -1,5 +1,4 @@
 <script lang="ts">
-	import AddListDialog from '$lib/components/AddListDialog.svelte';
 	import ListTable from './ListTable.svelte';
 	import LoadingCircle from '$lib/components/LoadingCircle.svelte';
 	import AlertError from '$lib/components/AlertError.svelte';
@@ -7,9 +6,9 @@
 	let { data } = $props();
 </script>
 
-<h1>Lists</h1>
-
-<AddListDialog />
+<header>
+	<h1>Lists</h1>
+</header>
 
 {#await data.responseData}
 	<LoadingCircle center size="xl" />
@@ -19,11 +18,6 @@
 	{/if}
 
 	{#if responseData.data?.files}
-		<!-- <ListTable /> -->
-		{#each responseData.data.files as list}
-			<div>
-				{list.filename}
-			</div>
-		{/each}
+		<ListTable data={responseData.data} />
 	{/if}
 {/await}

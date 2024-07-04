@@ -18,7 +18,7 @@
 	});
 </script>
 
-<Tooltip.Root openDelay={300}>
+<Tooltip.Root openDelay={250}>
 	<Tooltip.Trigger asChild let:builder>
 		<Button
 			variant="ghost"
@@ -27,7 +27,6 @@
 			href={url}
 			class={`hover:bg-muted rounded-lg p-2 ${current ? 'bg-muted' : ''}`}
 		>
-			<!-- class:bg-muted={current} -->
 			<svelte:component this={icon} class="h-full w-full" />
 		</Button>
 	</Tooltip.Trigger>
