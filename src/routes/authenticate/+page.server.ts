@@ -2,7 +2,7 @@ import { redirect } from '@sveltejs/kit';
 
 export function load({ locals, url }) {
 	if (locals.user) {
-		redirect(303, '/app');
+		redirect(307, '/app');
 	}
 
 	const tabParam = url.searchParams.get('tab');
