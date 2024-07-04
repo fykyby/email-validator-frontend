@@ -1,4 +1,5 @@
 import type { User } from '$lib/types';
+import { redirect } from '@sveltejs/kit';
 
 export async function handle({ event, resolve }) {
 	const userCookie = event.cookies.get('user_info');
@@ -8,6 +9,10 @@ export async function handle({ event, resolve }) {
 		event.locals.user = user;
 	} catch {
 		event.locals.user = null;
+
+		if (event.route.id?.startsWith('/app')) {
+			redirect(307, '/authenticate');
+		}
 	}
 
 	const response = await resolve(event);
