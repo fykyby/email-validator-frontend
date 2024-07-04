@@ -6,9 +6,11 @@ export default defineConfig({
 	server: {
 		https: true,
 		proxy: {},
-		port: 443
+		port: 443,
+		hmr: {
+			host: 'client.test'
+		}
 	},
-
 	plugins: [
 		sveltekit(),
 		mkcert({
