@@ -78,8 +78,16 @@
 			}
 		}),
 		table.column({
-			accessor: 'filename',
-			header: 'Name'
+			accessor: ({ id }) => id,
+			id: 'filename',
+			header: 'Name',
+			cell: (c) => {
+				return createRender(Button, {
+					variant: 'link',
+					href: `/app/lists/${c.value}`,
+					class: 'text-foreground p-0'
+				}).slot(data.files[parseInt(c.row.id)].filename);
+			}
 		}),
 		table.column({
 			accessor: 'upload_date',
@@ -199,8 +207,12 @@
 											<div class="w-min">
 												<Render of={cell.render()} />
 											</div>
+											<!-- {:else if cell.id === 'filename'}
+											<Button variant="link" href={'/app/lists/' + cell.id} class="text-foreground">
+												<Render of={cell.render()} />
+											</Button> -->
 										{:else}
-											<div class="">
+											<div>
 												<Render of={cell.render()} />
 											</div>
 										{/if}
