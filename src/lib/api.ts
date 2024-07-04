@@ -7,13 +7,13 @@ type RequestData = {
 	method: Method;
 	credentials: 'include';
 	headers: HeadersInit | undefined;
-	body: string | undefined;
+	body: BodyInit | undefined;
 };
 
 export async function apiRequest(
 	method: Method,
 	path: string,
-	body?: string
+	body?: BodyInit
 ): Promise<ResponseData> {
 	const requestData: RequestData = {
 		method: method,
