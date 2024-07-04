@@ -2,13 +2,14 @@
 	import ListTable from './ListTable.svelte';
 	import LoadingCircle from '$lib/components/LoadingCircle.svelte';
 	import AlertError from '$lib/components/AlertError.svelte';
+	import Header from '$lib/components/Header.svelte';
 
 	let { data } = $props();
 </script>
 
-<header>
+<Header>
 	<h1>Lists</h1>
-</header>
+</Header>
 
 {#await data.responseData}
 	<LoadingCircle center size="xl" />

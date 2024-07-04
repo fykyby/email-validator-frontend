@@ -37,7 +37,7 @@
 
 <Dialog.Root bind:open>
 	<Dialog.Trigger asChild let:builder>
-		<Button builders={[builder]} variant="outline" size="icon">
+		<Button class="shrink-0" builders={[builder]} variant="outline" size="icon">
 			<Plus />
 		</Button>
 	</Dialog.Trigger>

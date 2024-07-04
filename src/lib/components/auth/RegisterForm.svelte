@@ -33,15 +33,20 @@
 
 	<Label>
 		Email
-		<Input name="email" type="email" required />
+		<Input name="email" type="email" required disabled={responseData.status === 'pending'} />
 	</Label>
 	<Label>
 		Password
-		<Input name="password" type="password" required />
+		<Input name="password" type="password" required disabled={responseData.status === 'pending'} />
 	</Label>
 	<Label>
 		Confirm Password
-		<Input name="passwordConfirm" type="password" required />
+		<Input
+			name="passwordConfirm"
+			type="password"
+			required
+			disabled={responseData.status === 'pending'}
+		/>
 	</Label>
 
 	{#if responseData.status === 'success'}

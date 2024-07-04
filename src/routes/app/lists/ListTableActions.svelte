@@ -17,7 +17,12 @@
 
 <DropdownMenu.Root>
 	<DropdownMenu.Trigger asChild let:builder>
-		<Button variant={outline ? 'outline' : 'ghost'} builders={[builder]} size="icon">
+		<Button
+			class="shrink-0"
+			variant={outline ? 'outline' : 'ghost'}
+			builders={[builder]}
+			size="icon"
+		>
 			<Ellipsis />
 		</Button>
 	</DropdownMenu.Trigger>
