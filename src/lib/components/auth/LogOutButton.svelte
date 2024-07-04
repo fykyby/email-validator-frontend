@@ -13,7 +13,6 @@
 		responseData.status = 'pending';
 
 		const response = await apiRequest('POST', '/logout');
-		console.log(response);
 
 		responseData = response;
 
