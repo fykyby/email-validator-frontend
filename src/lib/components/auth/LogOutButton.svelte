@@ -5,6 +5,7 @@
 	import type { ResponseData } from '$lib/types';
 	import AlertError from '../AlertError.svelte';
 	import LoadingCircle from '../LoadingCircle.svelte';
+	import { LogOut } from 'lucide-svelte';
 
 	let responseData: ResponseData = $state(newResponseData());
 
@@ -22,14 +23,18 @@
 	}
 </script>
 
-{#if responseData.status === 'pending'}
-	<Button class="disabled w-fit" onclick={logOut}>
-		<LoadingCircle />
-	</Button>
-{:else}
-	<Button class="w-fit" onclick={logOut}>Log Out</Button>
-{/if}
+<div class="flex flex-col items-end gap-4">
+	{#if responseData.status === 'pending'}
+		<Button size="icon" variant="ghost" class="disabled" onclick={logOut}>
+			<LoadingCircle />
+		</Button>
+	{:else}
+		<Button size="icon" variant="ghost" onclick={logOut}>
+			<LogOut />
+		</Button>
+	{/if}
 
-{#if responseData.status === 'error'}
-	<AlertError message={responseData.message} />
-{/if}
+	{#if responseData.status === 'error'}
+		<AlertError message={responseData.message} />
+	{/if}
+</div>
