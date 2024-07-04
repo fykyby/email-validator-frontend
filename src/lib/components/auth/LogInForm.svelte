@@ -51,7 +51,7 @@
 	{/if}
 
 	{#if responseData.status === 'pending'}
-		<Button disabled type="submit">
+		<Button disabled>
 			<LoadingCircle />
 		</Button>
 	{:else}
