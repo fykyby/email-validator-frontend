@@ -9,7 +9,7 @@
 	import Label from './ui/label/label.svelte';
 
 	let responseData = $state(newResponseData());
-	let open = $state(true);
+	let open = $state(false);
 
 	async function submit(e: SubmitEvent) {
 		e.preventDefault();
