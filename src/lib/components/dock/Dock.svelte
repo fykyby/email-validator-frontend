@@ -3,9 +3,10 @@
 	import { LayoutDashboard, List, Presentation, Mails, User } from 'lucide-svelte';
 </script>
 
-<div class="fixed bottom-1 left-1 right-1 z-50 overflow-x-auto">
+<div class="h-[4.375rem]"></div>
+<div class="fixed bottom-0 left-1 right-1 z-50 -mx-4 overflow-x-auto px-4 pb-1">
 	<nav
-		class="bg-background/75 mx-auto flex w-fit gap-2 rounded-xl border p-2 shadow-md backdrop-blur-sm"
+		class="mx-auto flex w-fit gap-2 rounded-xl border bg-background/75 p-2 shadow-md backdrop-blur-sm"
 	>
 		<DockLink url="/app/dashboard" title="Dashboard" icon={LayoutDashboard} />
 		<DockLink url="/app/lists" title="Lists" icon={List} />
