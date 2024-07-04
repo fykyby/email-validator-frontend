@@ -3,32 +3,42 @@ import type { ResponseData } from './types';
 
 type Method = 'GET' | 'POST' | 'DELETE' | 'PUT';
 
-type RequestData = {
+type FetchConfig = {
 	method: Method;
 	credentials: 'include';
-	headers: HeadersInit | undefined;
-	body: BodyInit | undefined;
+	headers?: HeadersInit;
+	body?: BodyInit;
 };
 
-export async function apiRequest(
-	method: Method,
-	path: string,
-	body?: BodyInit
-): Promise<ResponseData> {
-	const requestData: RequestData = {
-		method: method,
+type RequestData = {
+	method: Method;
+	path: string;
+	body?: BodyInit;
+	bodyType?: 'json' | 'formdata';
+};
+
+export async function apiRequest(request: RequestData): Promise<ResponseData> {
+	if (!request.bodyType) {
+		request.bodyType = 'json';
+	}
+
+	const requestData: FetchConfig = {
+		method: request.method,
 		credentials: 'include',
 		headers: undefined,
 		body: undefined
 	};
 
-	if (body && (method === 'POST' || method === 'PUT')) {
-		requestData.headers = new Headers([['Content-Type', 'application/json']]);
-		requestData.body = body;
+	if (request.body) {
+		requestData.body = request.body;
+
+		if (request.bodyType === 'json') {
+			requestData.headers = new Headers([['Content-Type', 'application/json']]);
+		}
 	}
 
 	try {
-		const response = await fetch(PUBLIC_API_URL + path, requestData);
+		const response = await fetch(PUBLIC_API_URL + request.path, requestData);
 		const data = await response.json();
 
 		return {

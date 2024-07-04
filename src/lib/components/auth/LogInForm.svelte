@@ -16,14 +16,15 @@
 		responseData.status = 'pending';
 
 		const formData = new FormData(e.target as HTMLFormElement);
-		const response = await apiRequest(
-			'POST',
-			'/login',
-			JSON.stringify({
+		const response = await apiRequest({
+			method: 'POST',
+			path: '/login',
+			body: JSON.stringify({
 				email: formData.get('email'),
 				password: formData.get('password')
 			})
-		);
+		});
+
 		responseData = response;
 
 		if (responseData.status === 'success') {

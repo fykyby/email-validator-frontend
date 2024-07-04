@@ -12,7 +12,10 @@
 	async function logOut() {
 		responseData.status = 'pending';
 
-		const response = await apiRequest('POST', '/logout');
+		const response = await apiRequest({
+			method: 'POST',
+			path: '/logout'
+		});
 
 		responseData = response;
 

@@ -15,15 +15,15 @@
 		responseData.status = 'pending';
 
 		const formData = new FormData(e.target as HTMLFormElement);
-		const response = await apiRequest(
-			'POST',
-			'/register',
-			JSON.stringify({
+		const response = await apiRequest({
+			method: 'POST',
+			path: '/register',
+			body: JSON.stringify({
 				email: formData.get('email'),
 				password: formData.get('password'),
 				repeat_password: formData.get('passwordConfirm')
 			})
-		);
+		});
 		responseData = response;
 	}
 </script>
