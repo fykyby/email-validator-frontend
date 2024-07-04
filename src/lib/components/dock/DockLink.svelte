@@ -1,5 +1,7 @@
 <script lang="ts">
+	import * as Tooltip from '$lib/components/ui/tooltip';
 	import { page } from '$app/stores';
+	import { Button } from '../ui/button';
 
 	type Props = {
 		url: string;
@@ -16,6 +18,20 @@
 	});
 </script>
 
-<a href={url} class="hover:bg-muted rounded-lg p-2" class:bg-muted={current}>
-	<svelte:component this={icon} class="h-12 w-12" />
-</a>
+<Tooltip.Root openDelay={250}>
+	<Tooltip.Trigger asChild let:builder>
+		<Button
+			variant="ghost"
+			size="iconxl"
+			builders={[builder]}
+			href={url}
+			class={`hover:bg-muted rounded-lg p-2 ${current ? 'bg-muted' : ''}`}
+		>
+			<!-- class:bg-muted={current} -->
+			<svelte:component this={icon} class="h-full w-full" />
+		</Button>
+	</Tooltip.Trigger>
+	<Tooltip.Content>
+		<p>{title}</p>
+	</Tooltip.Content>
+</Tooltip.Root>
