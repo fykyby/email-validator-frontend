@@ -69,9 +69,12 @@
 			}
 		}),
 		table.column({
-			accessor: ({ address }) => address,
-			id: 'address',
+			accessor: 'address',
 			header: 'Address'
+		}),
+		table.column({
+			accessor: 'status',
+			header: 'Status'
 		}),
 		table.column({
 			accessor: ({ address }) => address,
