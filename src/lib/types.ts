@@ -19,6 +19,9 @@ export type List = {
 export interface ListsApiResponse extends ApiResponse {
 	data: {
 		lists: List[];
+		limit: number;
+		page: number;
+		total: number;
 	};
 }
 

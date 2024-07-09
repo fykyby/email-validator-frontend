@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { List } from '$lib/types';
+	import type { List, ListsApiResponse } from '$lib/types';
 	import { readable } from 'svelte/store';
 	import { createTable, Render, Subscribe, createRender } from 'svelte-headless-table';
 	import {
@@ -17,19 +17,13 @@
 	import ListsTableCheckbox from './ListsTableCheckbox.svelte';
 	import { Badge } from '$lib/components/ui/badge';
 
-	type Props = {
-		data: {
-			lists: List[];
-		};
-	};
-
-	const { data }: Props = $props();
+	const { data }: ListsApiResponse = $props();
 
 	const table = createTable(readable(data.lists), {
 		page: addPagination({
 			serverSide: true,
-			initialPageSize: 10,
-			serverItemCount: readable(3)
+			initialPageSize: data.limit,
+			serverItemCount: readable(data.total)
 		}),
 		sort: addSortBy({
 			toggleOrder: ['asc', 'desc'],
