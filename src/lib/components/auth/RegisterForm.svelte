@@ -28,7 +28,7 @@
 	}
 </script>
 
-<form onsubmit={submit} class="mx-auto flex w-full flex-col gap-4 rounded-md border p-4">
+<form onsubmit={submit}>
 	<h2>Register</h2>
 
 	<Label>
