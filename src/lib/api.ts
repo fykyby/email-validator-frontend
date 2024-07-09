@@ -3,19 +3,19 @@ import type { ApiResponse } from './types';
 
 type Method = 'GET' | 'POST' | 'DELETE' | 'PUT';
 
-type FetchConfig = {
-	method: Method;
-	credentials: 'include';
-	headers: Headers;
-	body?: BodyInit;
-};
-
 type RequestData = {
 	method: Method;
 	path: string;
 	body?: BodyInit;
 	bodyType?: 'json' | 'formdata';
 	cookies?: string | null;
+};
+
+type FetchConfig = {
+	method: Method;
+	credentials: 'include';
+	headers: Headers;
+	body?: BodyInit;
 };
 
 export async function apiRequest(request: RequestData): Promise<ApiResponse> {
