@@ -90,6 +90,11 @@
 			}
 		}),
 		table.column({
+			accessor: 'status',
+			id: 'status',
+			header: 'Status'
+		}),
+		table.column({
 			accessor: 'upload_date',
 			header: 'Created At',
 			cell: ({ value }) => {

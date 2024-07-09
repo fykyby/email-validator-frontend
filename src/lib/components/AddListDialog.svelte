@@ -48,6 +48,11 @@
 
 		<form id="createListForm" onsubmit={submit}>
 			<Label>
+				Name
+				<Input name="name" type="text" />
+			</Label>
+
+			<Label>
 				Files
 				<Input
 					name="files"

@@ -33,7 +33,7 @@
 	}
 </script>
 
-<form onsubmit={submit}>
+<form onsubmit={submit} class="borderform">
 	<h2>Log In</h2>
 
 	<Label>

@@ -28,7 +28,7 @@
 	}
 </script>
 
-<form onsubmit={submit}>
+<form onsubmit={submit} class="borderform">
 	<h2>Register</h2>
 
 	<Label>

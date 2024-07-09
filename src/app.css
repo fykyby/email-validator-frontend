@@ -70,6 +70,9 @@
 		@apply grid gap-1.5;
 	}
 	form {
-		@apply mx-auto flex w-full flex-col gap-4 rounded-md border p-4;
+		@apply mx-auto flex w-full flex-col gap-4 rounded-md;
+	}
+	form.borderform {
+		@apply border p-4;
 	}
 }
