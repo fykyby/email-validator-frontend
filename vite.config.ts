@@ -1,20 +1,24 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vite';
-import mkcert from 'vite-plugin-mkcert';
+import { defineConfig, type UserConfig } from 'vite';
 
-export default defineConfig({
-	server: {
-		https: true,
-		proxy: {},
-		port: 443,
-		hmr: {
-			host: 'client.test'
-		}
-	},
-	plugins: [
-		sveltekit(),
-		mkcert({
-			hosts: ['client.test']
-		})
-	]
-});
+const config: UserConfig = {
+	plugins: [sveltekit()]
+};
+
+// DEV HTTPS
+import mkcert from 'vite-plugin-mkcert';
+config.server = {
+	https: true,
+	proxy: {},
+	port: 443,
+	hmr: {
+		host: 'client.test'
+	}
+};
+config.plugins?.push(
+	mkcert({
+		hosts: ['client.test']
+	})
+);
+
+export default defineConfig(config);
