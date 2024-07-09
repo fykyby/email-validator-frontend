@@ -46,12 +46,18 @@ export async function apiRequest(request: RequestData): Promise<ApiResponse> {
 		const response = await fetch(PUBLIC_API_URL + request.path, requestData);
 		const data = await response.json();
 
+		if (!data.success) {
+			console.log('request error:\n', data.message);
+		}
+
 		return {
 			status: data.success ? 'success' : 'error',
 			message: data.message ?? null,
 			data: data.data ?? null
 		};
-	} catch {
+	} catch (error) {
+		console.log('request error:\n', error);
+
 		return {
 			status: 'error',
 			message: null,
