@@ -5,6 +5,7 @@
 	import type { ApiResponse } from '$lib/types';
 	import { apiRequest, newResponseData } from '$lib/api';
 	import { invalidateAll } from '$app/navigation';
+	import LoadingCircle from '$lib/components/LoadingCircle.svelte';
 
 	type Props = {
 		listIDs: number[];
@@ -36,14 +37,26 @@
 
 <DropdownMenu.Root>
 	<DropdownMenu.Trigger asChild let:builder>
-		<Button
-			class="shrink-0"
-			variant={outline ? 'outline' : 'ghost'}
-			builders={[builder]}
-			size="icon"
-		>
-			<Ellipsis />
-		</Button>
+		{#if responseData.status === 'pending'}
+			<Button
+				class="shrink-0"
+				variant={outline ? 'outline' : 'ghost'}
+				builders={[builder]}
+				size="icon"
+				disabled
+			>
+				<LoadingCircle />
+			</Button>
+		{:else}
+			<Button
+				class="shrink-0"
+				variant={outline ? 'outline' : 'ghost'}
+				builders={[builder]}
+				size="icon"
+			>
+				<Ellipsis />
+			</Button>
+		{/if}
 	</DropdownMenu.Trigger>
 	<DropdownMenu.Content>
 		<DropdownMenu.Item onclick={deleteList}>Delete</DropdownMenu.Item>
