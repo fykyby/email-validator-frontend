@@ -16,13 +16,29 @@ export type List = {
 	status: 'NOT VALIDATED' | 'VALIDATED' | 'PENDING';
 };
 
-export interface ListsApiResponse extends ApiResponse {
-	data: {
-		lists: List[];
-		limit: number;
-		page: number;
+export type ListData = {
+	lists: List[];
+	limit: number;
+	page: number;
+	total: number;
+};
+
+export type ListDataTest = {
+	lists: List[];
+	page: {
+		number: number;
+		size: number;
 		total: number;
 	};
+	sort: {
+		id: string;
+		order: 'asc' | 'desc';
+	};
+	query: string;
+};
+
+export interface ListsApiResponse extends ApiResponse {
+	data: ListData;
 }
 
 export type EmailAddress = {

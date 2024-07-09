@@ -1,13 +1,8 @@
 <script lang="ts">
-	import type { List, ListsApiResponse } from '$lib/types';
+	import type { ListData } from '$lib/types';
 	import { readable } from 'svelte/store';
 	import { createTable, Render, Subscribe, createRender } from 'svelte-headless-table';
-	import {
-		addPagination,
-		addSortBy,
-		addTableFilter,
-		addSelectedRows
-	} from 'svelte-headless-table/plugins';
+	import { addPagination, addSortBy, addSelectedRows } from 'svelte-headless-table/plugins';
 	import * as Table from '$lib/components/ui/table';
 	import { Button } from '$lib/components/ui/button';
 	import { ArrowRight, ArrowLeft, ArrowUpDown } from 'lucide-svelte';
@@ -16,22 +11,27 @@
 	import ListsTableActions from './ListsTableActions.svelte';
 	import ListsTableCheckbox from './ListsTableCheckbox.svelte';
 	import { Badge } from '$lib/components/ui/badge';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 
-	const { data }: ListsApiResponse = $props();
+	type Props = {
+		data: ListData;
+	};
+
+	const { data }: Props = $props();
 
 	const table = createTable(readable(data.lists), {
 		page: addPagination({
 			serverSide: true,
 			initialPageSize: data.limit,
-			serverItemCount: readable(data.total)
+			serverItemCount: readable(data.total),
+			initialPageIndex: data.page - 1
 		}),
 		sort: addSortBy({
 			toggleOrder: ['asc', 'desc'],
 			serverSide: true,
+			// TODO: Set initial sort keys to data from response
 			initialSortKeys: [{ id: 'upload_date', order: 'desc' }]
-		}),
-		filter: addTableFilter({
-			serverSide: true
 		}),
 		select: addSelectedRows()
 	});
@@ -57,9 +57,6 @@
 			plugins: {
 				sort: {
 					disable: true
-				},
-				filter: {
-					exclude: true
 				}
 			}
 		}),
@@ -116,31 +113,51 @@
 	const { headerRows, pageRows, tableAttrs, tableBodyAttrs, pluginStates, rows } =
 		table.createViewModel(columns);
 
-	const { hasNextPage, hasPreviousPage, pageIndex } = pluginStates.page;
+	const { hasNextPage, hasPreviousPage, pageCount } = pluginStates.page;
 	const { sortKeys } = pluginStates.sort;
-	const { filterValue } = pluginStates.filter;
 	const { selectedDataIds } = pluginStates.select;
 
-	$effect(() => {
-		// TODO: url based pagination
-		console.log('page', $pageIndex);
+	// TODO: Set initial query to data from response
+	let query = $state('');
+	let searchTimeout = $state(0);
+	function handleSearch() {
+		clearTimeout(searchTimeout);
+		searchTimeout = setTimeout(() => {
+			setParam('query', query);
+		}, 500);
+	}
 
-		// TODO: url based sorting
-		console.log('sort', $sortKeys);
+	function changePage(page: number) {
+		setParam('page', page.toString());
+	}
 
-		// TODO: url based filtering
-		console.log('filter', $filterValue);
-	});
-	$effect(() => {
-		console.log($selectedDataIds);
-	});
+	function onToggleSort() {
+		const sort = $page.url.searchParams.get('sort');
+		const value = `${$sortKeys[0].id},${$sortKeys[0].order}`;
+		if (value === sort) return;
+		setParam('sort', value);
+	}
+
+	async function setParam(key: string, value: string) {
+		const params = new URLSearchParams($page.url.searchParams.toString());
+		params.set(key, value);
+		await goto(`?${params.toString()}`);
+	}
 </script>
 
 <div>
 	<div class="flex items-center gap-4 pb-4">
 		<div class="flex grow gap-4">
 			<AddListDialog />
-			<Input class="max-w-sm" placeholder="Search..." type="search" bind:value={$filterValue} />
+
+			<Input
+				oninput={handleSearch}
+				autofocus
+				class="max-w-sm"
+				placeholder="Search..."
+				type="search"
+				bind:value={query}
+			/>
 		</div>
 		{#if Object.keys($selectedDataIds).length > 0}
 			<ListsTableActions
@@ -174,14 +191,26 @@
 											</div>
 										{:else if cell.id === 'name'}
 											<div class="-ml-4">
-												<Button variant="ghost" onclick={props.sort.toggle}>
+												<Button
+													variant="ghost"
+													onclick={(e: Event) => {
+														props.sort.toggle(e);
+														onToggleSort();
+													}}
+												>
 													<Render of={cell.render()} />
 													<ArrowUpDown class="ml-2 h-4 w-4" />
 												</Button>
 											</div>
 										{:else}
 											<div class="flex justify-center">
-												<Button variant="ghost" onclick={props.sort.toggle}>
+												<Button
+													variant="ghost"
+													onclick={(e: Event) => {
+														props.sort.toggle(e);
+														onToggleSort();
+													}}
+												>
 													<Render of={cell.render()} />
 													<ArrowUpDown class="ml-2 h-4 w-4" />
 												</Button>
@@ -242,16 +271,21 @@
 		<Button
 			variant="outline"
 			size="icon"
-			on:click={() => ($pageIndex = $pageIndex - 1)}
+			on:click={() => changePage(data.page - 1)}
 			disabled={!$hasPreviousPage}
 		>
 			<ArrowLeft />
 		</Button>
+		<span>
+			<span>{data.page}</span>
+			<span>/</span>
+			<span>{$pageCount}</span>
+		</span>
 		<Button
 			variant="outline"
 			size="icon"
 			disabled={!$hasNextPage}
-			on:click={() => ($pageIndex = $pageIndex + 1)}
+			on:click={() => changePage(data.page + 1)}
 		>
 			<ArrowRight />
 		</Button>
