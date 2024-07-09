@@ -2,6 +2,9 @@
 	import { Ellipsis } from 'lucide-svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { Button } from '$lib/components/ui/button';
+	import type { ApiResponse } from '$lib/types';
+	import { apiRequest, newResponseData } from '$lib/api';
+	import { invalidateAll } from '$app/navigation';
 
 	type Props = {
 		listIDs: number[];
@@ -10,8 +13,24 @@
 
 	const { listIDs, outline }: Props = $props();
 
-	function deleteList() {
-		console.log('delete', listIDs);
+	let responseData: ApiResponse = $state(newResponseData());
+
+	async function deleteList() {
+		responseData.status = 'pending';
+
+		const response = await apiRequest({
+			method: 'DELETE',
+			path: '/lists',
+			body: JSON.stringify({
+				list_ids: listIDs
+			})
+		});
+
+		responseData = response;
+
+		if (responseData.status === 'success') {
+			await invalidateAll();
+		}
 	}
 </script>
 
@@ -27,6 +46,6 @@
 		</Button>
 	</DropdownMenu.Trigger>
 	<DropdownMenu.Content>
-		<DropdownMenu.Item on:click={deleteList}>Delete</DropdownMenu.Item>
+		<DropdownMenu.Item onclick={deleteList}>Delete</DropdownMenu.Item>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

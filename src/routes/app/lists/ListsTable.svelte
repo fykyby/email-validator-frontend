@@ -79,14 +79,14 @@
 		}),
 		table.column({
 			accessor: ({ id }) => id,
-			id: 'filename',
+			id: 'name',
 			header: 'Name',
 			cell: (c) => {
 				return createRender(Button, {
 					variant: 'link',
 					href: `/app/lists/${c.value}`,
 					class: 'text-foreground p-0'
-				}).slot(data.lists[parseInt(c.row.id)].filename);
+				}).slot(data.lists[parseInt(c.row.id)].name);
 			}
 		}),
 		table.column({

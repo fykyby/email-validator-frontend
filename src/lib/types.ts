@@ -11,9 +11,9 @@ export type ApiResponse = {
 
 export type List = {
 	id: number;
-	filename: string;
+	name: string;
 	upload_date: string;
-	status: string;
+	status: 'NOT VALIDATED' | 'VALIDATED' | 'PENDING';
 };
 
 export interface ListsApiResponse extends ApiResponse {
