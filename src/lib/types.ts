@@ -17,7 +17,7 @@ export type List = {
 
 export interface ListsApiResponse extends ApiResponse {
 	data: {
-		files: List[];
+		lists: List[];
 	};
 }
 

@@ -18,7 +18,7 @@
 		<AlertError message={responseData.message} />
 	{/if}
 
-	{#if responseData.data?.files}
+	{#if responseData.data?.lists}
 		<ListsTable data={responseData.data} />
 	{/if}
 {/await}

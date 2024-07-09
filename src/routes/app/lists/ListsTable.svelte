@@ -18,13 +18,13 @@
 
 	type Props = {
 		data: {
-			files: List[];
+			lists: List[];
 		};
 	};
 
 	const { data }: Props = $props();
 
-	const table = createTable(readable(data.files), {
+	const table = createTable(readable(data.lists), {
 		page: addPagination({
 			serverSide: true,
 			initialPageSize: 10,
@@ -86,7 +86,7 @@
 					variant: 'link',
 					href: `/app/lists/${c.value}`,
 					class: 'text-foreground p-0'
-				}).slot(data.files[parseInt(c.row.id)].filename);
+				}).slot(data.lists[parseInt(c.row.id)].filename);
 			}
 		}),
 		table.column({
@@ -146,7 +146,7 @@
 			<ListsTableActions
 				outline
 				listIDs={Object.keys($selectedDataIds).map((key) => {
-					return data.files[parseInt(key)].id;
+					return data.lists[parseInt(key)].id;
 				})}
 			/>
 		{/if}
