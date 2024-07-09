@@ -178,8 +178,15 @@
 											<div class="w-min">
 												<Render of={cell.render()} />
 											</div>
-										{:else}
+										{:else if cell.id === 'name'}
 											<div class="-ml-4">
+												<Button variant="ghost" onclick={props.sort.toggle}>
+													<Render of={cell.render()} />
+													<ArrowUpDown class="ml-2 h-4 w-4" />
+												</Button>
+											</div>
+										{:else}
+											<div class="flex justify-center">
 												<Button variant="ghost" onclick={props.sort.toggle}>
 													<Render of={cell.render()} />
 													<ArrowUpDown class="ml-2 h-4 w-4" />
@@ -214,10 +221,14 @@
 												<Render of={cell.render()} />
 											</div>
 										{:else if cell.id === 'status'}
-											<div class="w-min">
+											<div class="flex justify-center">
 												<Badge variant="outline" class="text-nowrap">
 													<Render of={cell.render()} />
 												</Badge>
+											</div>
+										{:else if cell.id === 'upload_date'}
+											<div class="flex justify-center text-center">
+												<Render of={cell.render()} />
 											</div>
 										{:else}
 											<div>
