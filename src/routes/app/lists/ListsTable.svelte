@@ -15,6 +15,7 @@
 	import AddListDialog from '$lib/components/AddListDialog.svelte';
 	import ListsTableActions from './ListsTableActions.svelte';
 	import ListsTableCheckbox from './ListsTableCheckbox.svelte';
+	import { Badge } from '$lib/components/ui/badge';
 
 	type Props = {
 		data: {
@@ -211,6 +212,12 @@
 										{:else if cell.id === 'id'}
 											<div class="w-min">
 												<Render of={cell.render()} />
+											</div>
+										{:else if cell.id === 'status'}
+											<div class="w-min">
+												<Badge variant="outline" class="text-nowrap">
+													<Render of={cell.render()} />
+												</Badge>
 											</div>
 										{:else}
 											<div>
