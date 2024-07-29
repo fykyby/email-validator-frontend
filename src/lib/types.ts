@@ -18,13 +18,7 @@ export type List = {
 
 export type ListData = {
 	lists: List[];
-	limit: number;
-	page: number;
-	total: number;
-};
-
-export type ListDataTest = {
-	lists: List[];
+	query: string;
 	page: {
 		number: number;
 		size: number;
@@ -34,7 +28,6 @@ export type ListDataTest = {
 		id: string;
 		order: 'asc' | 'desc';
 	};
-	query: string;
 };
 
 export interface ListsApiResponse extends ApiResponse {

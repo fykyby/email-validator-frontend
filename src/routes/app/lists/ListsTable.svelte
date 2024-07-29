@@ -23,9 +23,9 @@
 	const table = createTable(readable(data.lists), {
 		page: addPagination({
 			serverSide: true,
-			initialPageSize: data.limit,
-			serverItemCount: readable(data.total),
-			initialPageIndex: data.page - 1
+			initialPageSize: data.page.size,
+			serverItemCount: readable(data.page.total),
+			initialPageIndex: data.page.number - 1
 		}),
 		sort: addSortBy({
 			toggleOrder: ['asc', 'desc'],
@@ -267,27 +267,30 @@
 			</Table.Body>
 		</Table.Root>
 	</div>
-	<div class="flex items-center justify-center gap-x-4 py-4">
-		<Button
-			variant="outline"
-			size="icon"
-			on:click={() => changePage(data.page - 1)}
-			disabled={!$hasPreviousPage}
-		>
-			<ArrowLeft />
-		</Button>
-		<span>
-			<span>{data.page}</span>
-			<span>/</span>
-			<span>{$pageCount}</span>
-		</span>
-		<Button
-			variant="outline"
-			size="icon"
-			disabled={!$hasNextPage}
-			on:click={() => changePage(data.page + 1)}
-		>
-			<ArrowRight />
-		</Button>
-	</div>
+
+	{#if data.page.total !== 0}
+		<div class="flex items-center justify-center gap-x-4 py-4">
+			<Button
+				variant="outline"
+				size="icon"
+				on:click={() => changePage(data.page.number - 1)}
+				disabled={!$hasPreviousPage}
+			>
+				<ArrowLeft />
+			</Button>
+			<span>
+				<span>{data.page.number}</span>
+				<span>/</span>
+				<span>{$pageCount}</span>
+			</span>
+			<Button
+				variant="outline"
+				size="icon"
+				disabled={!$hasNextPage}
+				on:click={() => changePage(data.page.number + 1)}
+			>
+				<ArrowRight />
+			</Button>
+		</div>
+	{/if}
 </div>
